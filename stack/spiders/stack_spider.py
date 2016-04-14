@@ -2,22 +2,10 @@ from scrapy import Spider
 from scrapy.selector import Selector
 
 from stack.items import StackItem
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from stack.spiders.cinema_spider import CinemaSpider
 
-class StackSpider(Spider):
-    name = "stack"
-    allowed_domains = ["stackoverflow.com"]
-    start_urls = [
-        "http://stackoverflow.com/questions?pagesize=2&sort=newest",
-    ]
- 	
-    def parse(self, response):
-       questions = Selector(response).xpath('//div[@class="summary"]/h3')
-       print "Leng quest = %d" % len(questions)
-
-       for question in questions:
-            item = StackItem()
-            item['title'] = question.xpath(
-                'a[@class="question-hyperlink"]/text()').extract()[0]
-            item['url'] = question.xpath(
-                'a[@class="question-hyperlink"]/@href').extract()[0]
-            yield item
+#process = CrawlerProcess(get_project_settings())
+#process.crawl(CinemaSpider)
+#process.start() # the script will block here until the crawling is finished

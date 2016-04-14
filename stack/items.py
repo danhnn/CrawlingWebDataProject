@@ -23,5 +23,10 @@ class CinemaUrlItem(scrapy.Item):
 class CinemaDetailItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    title = scrapy.Field()
-    url = scrapy.Field()
+    name = scrapy.Field()
+    address = scrapy.Field()
+    lat = scrapy.Field()
+    lng = scrapy.Field()
+    organizer_phone = scrapy.Field()
+    event_information = scrapy.Field()
+    

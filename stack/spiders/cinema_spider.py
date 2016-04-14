@@ -10,14 +10,31 @@ class CinemaSpider(Spider):
         "http://www.123phim.vn",
     ]
  	
-    def parse(self, response):
-       questions = Selector(response).xpath('//*[@id="menu-hide"]/div[3]/div[3]/div/div/ul/li/div')
-       print "Leng quest = %d" % len(questions)
+    def __init__(self):
+        self.output_cinema_detail_url = []    # creates a new empty list for each dog
 
-       for question in questions:
+    def writeUrlToFile(self):
+       print self.output_cinema_detail_url
+       with open('cinema_detail_url.txt','a') as f:
+        # write out the title and add a newline.
+         f.truncate(0)
+         for url in self.output_cinema_detail_url:
+           f.write(url + "\n")
+       return
+
+    def parse(self, response):
+       output_cinema_detail_url = []
+       itemSelectors = Selector(response).xpath('//*[@id="menu-hide"]/div[3]/div[3]/div/div/ul/li/div')
+       
+       for itemSelector in itemSelectors:
             item = CinemaUrlItem()
-            item['title'] = question.xpath(
+            item['title'] = itemSelector.xpath(
                 'a/text()').extract()[0]
-            item['url'] = question.xpath(
+            item['url'] = itemSelector.xpath(
                 'a/@href').extract()[0]
-            yield item
+            self.output_cinema_detail_url.append(CinemaSpider.start_urls[0] + item['url']) 
+            #yield item
+       
+       self.writeUrlToFile()
+    
+    
