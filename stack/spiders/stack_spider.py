@@ -7,11 +7,12 @@ class StackSpider(Spider):
     name = "stack"
     allowed_domains = ["stackoverflow.com"]
     start_urls = [
-        "http://stackoverflow.com/questions?pagesize=50&sort=newest",
+        "http://stackoverflow.com/questions?pagesize=2&sort=newest",
     ]
  	
     def parse(self, response):
        questions = Selector(response).xpath('//div[@class="summary"]/h3')
+       print "Leng quest = %d" % len(questions)
 
        for question in questions:
             item = StackItem()

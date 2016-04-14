@@ -14,3 +14,14 @@ class StackItem(scrapy.Item):
     title = scrapy.Field()
     url = scrapy.Field()
 
+class CinemaUrlItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    title = scrapy.Field()
+    url = scrapy.Field()
+
+class CinemaDetailItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    title = scrapy.Field()
+    url = scrapy.Field()

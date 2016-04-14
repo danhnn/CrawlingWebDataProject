@@ -14,7 +14,7 @@ BOT_NAME = 'stack'
 SPIDER_MODULES = ['stack.spiders']
 NEWSPIDER_MODULE = 'stack.spiders'
 
-ITEM_PIPELINES = ['stack.pipelines.StackPipeline', ]
+#ITEM_PIPELINES = ['stack.pipelines.StackPipeline', ]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'stack (+http://www.yourdomain.com)'
