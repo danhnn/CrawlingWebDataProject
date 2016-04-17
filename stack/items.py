@@ -14,19 +14,20 @@ class StackItem(scrapy.Item):
     title = scrapy.Field()
     url = scrapy.Field()
 
-class CinemaUrlItem(scrapy.Item):
+class BaseUrlItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     title = scrapy.Field()
     url = scrapy.Field()
 
-class CinemaDetailItem(scrapy.Item):
+class BaseDetailItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     name = scrapy.Field()
     address = scrapy.Field()
     lat = scrapy.Field()
     lng = scrapy.Field()
+    kind = scrapy.Field()
     organizer_phone = scrapy.Field()
     event_information = scrapy.Field()
     

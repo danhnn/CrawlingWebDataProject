@@ -7,30 +7,24 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from stack.spiders.cinema_spider import CinemaSpider
 
-class CinemaDetailSpider(Spider): 
+class FoodyGameDetailSpider(Spider): 
 
-    name = "cinema_detail"
-    allowed_domains = ["123phim.vn"]
-    """
-    start_urls = [
-        "http://www.123phim.vn/rap-chieu-phim/97-cinestar-quoc-thanh.html",
-        "http://www.123phim.vn/rap-chieu-phim/52-cgv-celadon-tan-phu.html"
-    ]
-    """
+    name = "foody_game_detail"
+    allowed_domains = ["http://foody.vn/"]
     
-    f = open("cinema_detail_url.txt")
+    f = open("foody_game_detail_url.txt")
     start_urls = [url.strip() for url in f.readlines()]
     del start_urls[-1]
     f.close()
-    
+    	
     def parse(self, response):
-       #print CinemaDetailSpider.start_urls
-       itemSelects = Selector(response).xpath('/html/body/section[2]/section/div[2]')
+       itemSelects = Selector(response).xpath('/html/body/div[3]')
 
        for itemSelect in itemSelects:
             item = BaseDetailItem()
+
             item['name'] = itemSelect.xpath(
-                'div[1]/h3/text()').extract()[0]
+                'section[1]/div/div/div/div[1]/div/div[4]/div[3]/div/div[1]/div[2]/h1/text()').extract()[0]
             try:
                 item['organizer_phone'] = itemSelect.xpath(
                 'div[1]/p[last()]/text()[2]').extract()[0]        
@@ -39,16 +33,17 @@ class CinemaDetailSpider(Spider):
 
             try:
                 item['address'] = itemSelect.xpath(
-                'div[1]/p[last()]/text()[1]').extract()[0]      
+                'section[1]/div/div/div/div[1]/div/div[4]/div[3]/div/div[1]/div[4]/div[1]/div/div/span[2]/a/text()').extract()[0]      
             except:
                 item['address'] = "Unkown-parse error"
        
             item['event_information'] = itemSelect.xpath(
-                'div[1]/p[1]').extract()[0]
+                '/html/head/meta[9]/@content').extract()[0]
+
             item['lat'] = itemSelect.xpath(
-                '//*[@id="cinema-map"]/@data-lat').extract()[0]
+                '/html/head/meta[14]/@content').extract()[0]
             item['lng'] = itemSelect.xpath(
-                '//*[@id="cinema-map"]/@data-lng').extract()[0]
+                '/html/head/meta[15]/@content').extract()[0]
            
             #print item
             yield item

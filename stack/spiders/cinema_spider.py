@@ -1,7 +1,7 @@
 from scrapy import Spider
 from scrapy.selector import Selector
 
-from stack.items import CinemaUrlItem
+from stack.items import BaseUrlItem
 
 class CinemaSpider(Spider):
     name = "cinema"
@@ -27,7 +27,7 @@ class CinemaSpider(Spider):
        itemSelectors = Selector(response).xpath('//*[@id="menu-hide"]/div[3]/div[3]/div/div/ul/li/div')
        
        for itemSelector in itemSelectors:
-            item = CinemaUrlItem()
+            item = BaseUrlItem()
             item['title'] = itemSelector.xpath(
                 'a/text()').extract()[0]
             item['url'] = itemSelector.xpath(
