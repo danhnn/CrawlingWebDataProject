@@ -9,16 +9,22 @@ class FoodyGameSpider(Spider):
     start_urls = [
         #"http://entertain.foody.vn/ho-chi-minh/khu-choi-game?page=5",
         #"http://entertain.foody.vn/ho-chi-minh/cong-vien-vui-choi?page=2",
-        "http://shop.foody.vn/ho-chi-minh/trung-tam-thuong-mai?page=3",
-        #"http://travel.foody.vn/ho-chi-minh/khu-du-lich?page=2",
+        #"http://shop.foody.vn/ho-chi-minh/trung-tam-thuong-mai?page=3",
+        "http://travel.foody.vn/ho-chi-minh/khu-du-lich?page=2",
     ]
 
     #detail_raw_url = "http://entertain.foody.vn"
-    detail_raw_url = "http://shop.foody.vn"
-	#detail_raw_url = "http://travel.foody.vn"
+    detail_raw_url = ""
 
     def __init__(self):
         self.output_foody_game_detail_url = []    # creates a new empty list for each dog
+        self.getDetailUrl()
+
+    def getDetailUrl(self):
+      s = FoodyGameSpider.start_urls[0]
+      start = 0
+      end = s.find('n/', start)
+      FoodyGameSpider.detail_raw_url = s[start:end+1]
 
     def writeUrlToFile(self):
        print self.output_foody_game_detail_url

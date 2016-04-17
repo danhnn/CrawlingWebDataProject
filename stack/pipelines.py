@@ -49,7 +49,7 @@ class CinemaPipeline(object):
         if is_valid:
             now = datetime.datetime.now()
             ins_query = self.event_items.insert().values(
-                kind="cinema",
+                kind="sight_seeing",
                 lat=item["lat"],lng=item["lng"], name=item["name"],
                 organizer_phone=item["organizer_phone"],event_information=item["event_information"],
                 address=item["address"],created_at=now,updated_at=now)
